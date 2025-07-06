@@ -1,11 +1,11 @@
 "use client";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ChevronsLeftRight } from "lucide-react";
 import { SignOutButton, useUser } from "@clerk/nextjs";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar } from "@/components/ui/avatar";
-import { ChevronsLeftRight } from "lucide-react";
 
 const UserItem = () => {
     const { user } = useUser();

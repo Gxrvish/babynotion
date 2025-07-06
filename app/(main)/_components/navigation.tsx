@@ -1,17 +1,29 @@
 "use client";
 
-import { ChevronsLeft, MenuIcon } from "lucide-react";
-import { usePathname } from 'next/navigation';
+import { toast } from "sonner";
+import {
+    ChevronsLeft,
+    MenuIcon,
+    PlusCircle,
+    Search,
+    Settings
+} from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { useMutation, useQuery } from "convex/react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
+import { api } from "@/convex/_generated/api";
 
-import UserItem from './user-item';
+import UserItem from "./user-item";
+import Item from "./item";
 
 const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
+    const documents = useQuery(api.documents.get);
+    const create = useMutation(api.documents.create);
 
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<HTMLElement | null>(null);
@@ -40,7 +52,6 @@ const Navigation = () => {
             document.removeEventListener("mouseup", handleMouseUp);
         };
     }, []);
-
 
     const handleMouseDown = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -110,6 +121,17 @@ const Navigation = () => {
         }
     }
 
+    const handleCreate = () => {
+        const promise = create({
+            title: "Untitled Document",
+        });
+        toast.promise(promise, {
+            loading: "Creating document...",
+            success: "Document created successfully!",
+            error: (error) => `Error creating document: ${error.message}`,
+        });
+    }
+
     return (
         <>
             <aside
@@ -131,11 +153,39 @@ const Navigation = () => {
                 </div>
                 <div className="">
                     <UserItem />
+                    <Item
+                        label="Search"
+                        icon={Search}
+                        isSearch
+                        onClick={() => { }}
+                    />
+                    <Item
+                        label="Settings"
+                        icon={Settings}
+                        onClick={() => { }}
+                    />
+                    <Item
+                        onClick={handleCreate}
+                        label="New page"
+                        icon={PlusCircle}
+                    />
                 </div>
                 <div className="mt-4">
-                    <p className="">
-                        Documents
-                    </p>
+                    {
+                        documents?.map((doc) => {
+                            return (
+                                <a
+                                    key={doc._id}
+                                    href={`/documents/${doc._id}`}
+                                    className={cn(
+                                        "block px-3 py-2 text-sm font-medium rounded-md hover:bg-primary/5",
+                                        pathname === `/documents/${doc._id}` && "bg-primary/10"
+                                    )}>
+                                    {doc.title || "Untitled Document"}
+                                </a>
+                            )
+                        })
+                    }
                 </div>
                 {/* _g_ */}
                 {!isMobile && (
