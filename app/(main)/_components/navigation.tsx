@@ -7,6 +7,8 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from '@/lib/utils';
 
+import UserItem from './user-item';
+
 const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -24,6 +26,12 @@ const Navigation = () => {
             resetWidth();
         }
     }, [isMobile])
+
+    useEffect(() => {
+        if (isMobile) {
+            collapse();
+        }
+    }, [pathname]);
 
     // _g_
     useEffect(() => {
@@ -122,9 +130,7 @@ const Navigation = () => {
                     <ChevronsLeft />
                 </div>
                 <div className="">
-                    <p className="">
-                        Action Items
-                    </p>
+                    <UserItem />
                 </div>
                 <div className="mt-4">
                     <p className="">

@@ -1,6 +1,38 @@
+"use client";
+
+import { useUser } from '@clerk/nextjs';
+import { PlusCircle } from 'lucide-react';
+import Image from 'next/image';
+
+import { Button } from '@/components/ui/button';
+
 const DocumentsPage = () => {
+    const { user } = useUser();
+
     return (
-        <div>DocumentsPage</div>
+        <div className="h-full flex flex-col items-center justify-center space-y-4">
+            <Image
+                src="/empty.svg"
+                alt="No documents found"
+                width="300"
+                height="300"
+                className="dark:hidden"
+            />
+            <Image
+                src="/empty-dark.svg"
+                alt="No documents found"
+                width="300"
+                height="300"
+                className="hidden dark:block"
+            />
+            <h2 className="text-lg font-medium">
+                Welcome to {user?.firstName || 'Your'}&apos;s Documents Page
+            </h2>
+            <Button>
+                <PlusCircle className="h-4 w-4 mr-1" />
+                <span className="">Create document</span>
+            </Button>
+        </div>
     )
 }
 
