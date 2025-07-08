@@ -1,11 +1,17 @@
 "use client";
 
-import { ChevronsLeftRight } from "lucide-react";
 import { SignOutButton, useUser } from "@clerk/nextjs";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { ChevronsLeftRight } from "lucide-react";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar } from "@/components/ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const UserItem = () => {
     const { user } = useUser();
@@ -14,7 +20,8 @@ const UserItem = () => {
             <DropdownMenuTrigger asChild>
                 <div
                     role="button"
-                    className="flex items-center test-sm p-3 w-full hover:bg-primary/5">
+                    className="flex items-center test-sm p-3 w-full hover:bg-primary/5"
+                >
                     <div className="gap-x-2 flex items-center max-w-[200px]">
                         <Avatar className="h-5 w-5">
                             <AvatarImage src={user?.imageUrl} />
@@ -23,9 +30,7 @@ const UserItem = () => {
                             {user?.firstName || "User"}&apos;s Account
                         </span>
                     </div>
-                    <ChevronsLeftRight
-                        className="rotate-90 ml-2 text-muted-foreground h-4 w-4"
-                    />
+                    <ChevronsLeftRight className="rotate-90 ml-2 text-muted-foreground h-4 w-4" />
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -54,14 +59,13 @@ const UserItem = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                     asChild
-                    className="w-full cursor-pointer text-muted-foreground">
-                    <SignOutButton>
-                        Log out
-                    </SignOutButton>
+                    className="w-full cursor-pointer text-muted-foreground"
+                >
+                    <SignOutButton>Log out</SignOutButton>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-    )
-}
+    );
+};
 
-export default UserItem
+export default UserItem;

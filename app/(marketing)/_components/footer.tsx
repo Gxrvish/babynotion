@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button"
-import Logo from "./logo"
+import { Button } from "@/components/ui/button";
+
+import Logo from "./logo";
 
 const Footer = () => {
     return (
@@ -14,7 +15,7 @@ const Footer = () => {
                 </Button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Footer
+export default Footer;

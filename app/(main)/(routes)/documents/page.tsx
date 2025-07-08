@@ -1,13 +1,13 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import { useMutation } from "convex/react";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { useMutation } from "convex/react";
+import { toast } from "sonner";
 
-import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
-import { toast } from 'sonner';
+import { api } from "@/convex/_generated/api";
 
 const DocumentsPage = () => {
     const { user } = useUser();
@@ -23,7 +23,7 @@ const DocumentsPage = () => {
             success: "Document created successfully!",
             error: (error) => `Error creating document: ${error.message}`,
         });
-    }
+    };
 
     return (
         <div className="h-full flex flex-col items-center justify-center space-y-4">
@@ -49,7 +49,7 @@ const DocumentsPage = () => {
                 <span className="">Create document</span>
             </Button>
         </div>
-    )
-}
+    );
+};
 
-export default DocumentsPage
+export default DocumentsPage;
