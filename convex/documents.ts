@@ -193,7 +193,7 @@ export const getSearchResults = query({
 
 export const getDocumentById = query({
     args: {
-        id: v.id("documents"),
+        documentId: v.id("documents"),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -201,7 +201,7 @@ export const getDocumentById = query({
             throw new Error("Unauthorized");
         }
         const userId = identity.subject;
-        const document = await ctx.db.get(args.id);
+        const document = await ctx.db.get(args.documentId);
         if (!document) {
             throw new Error("Document not found");
         }
@@ -242,6 +242,56 @@ export const updateDocument = mutation({
         }
         const updatedDocument = await ctx.db.patch(id, {
             ...rest,
+        });
+        return updatedDocument;
+    },
+});
+
+export const removeIcon = mutation({
+    args: {
+        id: v.id("documents"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new Error("Unauthorized");
+        }
+        const userId = identity.subject;
+        const existingDocument = await ctx.db.get(args.id);
+        if (!existingDocument) {
+            throw new Error("Document not found");
+        }
+        if (existingDocument.userId !== userId) {
+            throw new Error("Unauthorized to remove icon from this document");
+        }
+        const updatedDocument = await ctx.db.patch(args.id, {
+            icon: undefined,
+        });
+        return updatedDocument;
+    },
+});
+
+export const removeCoverImage = mutation({
+    args: {
+        id: v.id("documents"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new Error("Unauthorized");
+        }
+        const userId = identity.subject;
+        const existingDocument = await ctx.db.get(args.id);
+        if (!existingDocument) {
+            throw new Error("Document not found");
+        }
+        if (existingDocument.userId !== userId) {
+            throw new Error(
+                "Unauthorized to remove cover image from this document",
+            );
+        }
+        const updatedDocument = await ctx.db.patch(args.id, {
+            coverImage: undefined,
         });
         return updatedDocument;
     },
