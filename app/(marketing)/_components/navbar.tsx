@@ -33,7 +33,7 @@ const Navbar = () => {
                             </Button>
                         </SignInButton>
                         <SignInButton mode="modal">
-                            <Button size="sm">Get BabyNotion</Button>
+                            <Button size="sm">Get BabyNoteApp</Button>
                         </SignInButton>
                     </>
                 )}

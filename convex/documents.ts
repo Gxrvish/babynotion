@@ -197,10 +197,7 @@ export const getDocumentById = query({
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
-        if (!identity) {
-            throw new Error("Unauthorized");
-        }
-        const userId = identity.subject;
+        const userId = identity?.subject;
         const document = await ctx.db.get(args.documentId);
         if (!document) {
             throw new Error("Document not found");

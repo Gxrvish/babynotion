@@ -27,6 +27,7 @@ const Banner = ({ documentId }: BannerProps) => {
             error: (error) => `Error removing document: ${error.message}`,
         });
         router.push("/documents");
+        router.refresh();
     };
 
     const onRestore = () => {

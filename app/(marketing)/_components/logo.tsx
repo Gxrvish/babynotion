@@ -13,19 +13,19 @@ const Logo = () => {
         <div className="hidden md:flex items-center gap-x-2">
             <Image
                 src="/logo.svg"
-                alt="BabyNotion Logo"
+                alt="BabyNoteApp Logo"
                 width={40}
                 height={40}
                 className="dark:hidden object-contain"
             />
             <Image
                 src="/logo-dark.svg"
-                alt="BabyNotion Logo"
+                alt="BabyNoteApp Logo"
                 width={40}
                 height={40}
                 className="object-contain hidden dark:block"
             />
-            <p className={cn("font-semibold", font.className)}>BabyNotion</p>
+            <p className={cn("font-semibold", font.className)}>BabyNoteApp</p>
         </div>
     );
 };

@@ -9,7 +9,7 @@ import {
     Settings,
     Trash,
 } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
@@ -31,6 +31,7 @@ import TrashBox from "./trash-box";
 import UserItem from "./user-item";
 
 const Navigation = () => {
+    const router = useRouter();
     const settings = useSettings();
     const search = useSearch();
     const params = useParams();
@@ -140,6 +141,8 @@ const Navigation = () => {
     const handleCreate = () => {
         const promise = create({
             title: "Untitled",
+        }).then((documentId) => {
+            router.push(`/documents/${documentId}`);
         });
         toast.promise(promise, {
             loading: "Creating document...",
